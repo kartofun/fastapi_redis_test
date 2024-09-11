@@ -15,17 +15,22 @@
 ```
     docker-compose build
 ```
+* опционально можно прогнать тесты:
+
+```
+docker-compose run --rm main_app py.test fastapiredis/tests.py --cov=fastapiredis
+```
 * после компоновки образа можно запустить:
 
 ```
     docker-compose up
 ```
 
-Запуск тестов:
 
-```
-docker-compose run --rm main_app py.test fastapiredis/tests.py --cov=fastapiredis
-```
+Запущенный сервис будет доступен по адресу `http://0.0.0.0:8000`,  документация `http://0.0.0.0:8000/docs`
+
+
+
 
 
 
@@ -35,8 +40,12 @@ docker-compose run --rm main_app py.test fastapiredis/tests.py --cov=fastapiredi
 
 
 ```
-UPDATE full_names SET status = table_res.status FROM (SELECT name_full, status, s_name  from (SELECT name as name_full, REGEXP_SUBSTR(name, '([^.]+)') as s_name from full_names) 
-as table1 JOIN short_names on table1.s_name = short_names.name) as table_res WHERE full_names.name = table_res.name_full
+UPDATE full_names SET status = table_res.status FROM (
+    SELECT name_full, status, s_name  from (
+        SELECT name as name_full, REGEXP_SUBSTR(name, '([^.]+)') as s_name from full_names
+    ) as table1 JOIN short_names on table1.s_name = short_names.name
+) as table_res
+WHERE full_names.name = table_res.name_full
 ```
 
 Генерация данных для тестов:
