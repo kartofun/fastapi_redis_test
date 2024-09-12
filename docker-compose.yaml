@@ -4,9 +4,6 @@ services:
 
   main_app:
     build: .
-    environment:
-      REDIS_HOST: "redis"
-      REDIS_PASSWORD: "password"
     ports:
       - "8000:8000"
     volumes:
