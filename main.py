@@ -1,0 +1,1 @@
+from fastapiredis import app
